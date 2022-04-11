@@ -1,4 +1,5 @@
 name: Build
+
 on:
   push:
     branches: [main]
@@ -17,6 +18,9 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '11'
-        
-    - name: Mvn pkg
+        distribution: 'temurin'
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+    - name: Build with Maven
       run: mvn -B clean package -DskipTests
