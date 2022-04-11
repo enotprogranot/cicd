@@ -1,0 +1,30 @@
+name: Build Docker Image and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3          
+      
+    - name: Build docker image
+      run: docker build --tag demo-app_ksenia-abramova:latest .
+      
+    - name: Docker login
+      run: docker login docker.pkg.github.com -u $GITHUB_ACTOR -p ${{secrets.GITHUB_TOKEN}}  
+      
+    - name: Tag Docker image
+      run: docker tag demo-app_ksenia-abramova:latest docker.pkg.github.com/enotprogranot/cicd/demo-app_ksenia-abramova:1
+      
+    - name: Publish image
+      run: docker push  docker.pkg.github.com/enotprogranot/cicd/demo-app_ksenia-abramova:1
+     
+      

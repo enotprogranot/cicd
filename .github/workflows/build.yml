@@ -1,4 +1,4 @@
-name: Build
+name: Build and Test
 
 on:
   push:
@@ -21,14 +21,14 @@ jobs:
         distribution: 'temurin'
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
-
-    - name: Maven Verify
-      run: mvn -B clean verify
       
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+      with:
+        arguments: build   
+
     - name: Test coverage codecov
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        
-    - name: Echo secrets
-      run: echo Hello, world! ${{ secrets.HELLO }} , ${{ secrets.CODECOV_TOKEN }}
+        fail_ci_if_error: true
