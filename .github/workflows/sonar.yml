@@ -20,7 +20,9 @@ jobs:
         distribution: 'temurin'
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
-
+        
+    - name: Echo SONAR TOKEN
+      run: echo Token sonar! ${{ secrets.SONAR_TOKEN }}
 
     - name: Analyze with SonarCloud
       env:
