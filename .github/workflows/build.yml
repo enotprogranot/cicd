@@ -7,12 +7,16 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
-      uses: actions/setup-java@v3s
+      uses: actions/setup-java@v3
       with:
-        java-version: 11.1
+        java-version: '11'
         
     - name: Mvn pkg
       run: mvn -B clean package -DskipTests
