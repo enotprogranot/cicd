@@ -31,4 +31,4 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         
     - name: Echo secrets
-      run: echo Hello, world! ${{ secrets.CODECOV_TOKEN }}
+      run: echo Hello, world! ${{ secrets.HELLO }}
